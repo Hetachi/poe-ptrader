@@ -1,33 +1,126 @@
-.App {
+body {
+  background: #242424;
+}
+
+.consoleContainer {
+  position: relative;
+  max-width: 802px;
+}
+
+.hidden {
+  height: 0;
+  width: 800px;
+  overflow: hidden;
+  border: 1px solid #e6f0ff;
+  color: #7daf86;
+  background: #1d2127;
+  transition: all 1s;
+}
+
+.console {
+  height: 200px;
+  width: 800px;
+  overflow-y: scroll;
+  border: 1px solid #e6f0ff;
+  border-bottom: none;
+  color: #7daf86;
+  background: #1d2127;
+  transition: all 1s;
+}
+
+
+.button {
+  width: 30px;
+  height: 20px;
+  margin: 0;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.consoleInput {
+  display: block;
+  width: 795px;
+  border: none;
+  font-size: 10px;
+  line-height: 15px;
+  background: #1f2329;
+  border-bottom: 1px solid #e6f0ff;
+  border-left: 1px solid #e6f0ff;
+  border-right: 1px solid #e6f0ff;
+  padding-left: 5px;
+  color: #0f920f;
+}
+
+.consoleInput:focus {
+  outline: none;
+}
+
+.left {
+  width: auto;
+  padding: 0 5px;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+}
+
+.itemListContainer {
+  color: #4ea378;
+  margin: 0 100px;
+}
+
+.itemTitle {
+  border: 2px solid #757575;
+  padding: 5px;
+  margin: 10px 0 0 0;
+}
+
+.itemPropertyContainer {
+  border: 2px solid #757575;
+  border-top: none;
+  width: 96%;
+  margin: 0 auto;
+  list-style: none;
+  padding: 15px;
+  padding-top: 5px;
+}
+
+.itemWhisper {
+  width: 100%;
+  background: #1d2127;
+  color: #4ea378;
+  border: 1px solid gray;
+  padding: 5px;
+  margin: 3px 0;
+  outline: none;
+}
+
+.updateSpeed {
+  border: none;
+  outline: none;
+  height: 18px;
+  background: #1f2329;
+  color: green;
+  width: 20px;
+  cursor: default;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.updateSpeed::placeholder {
+  color: #7daf86;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.speedUpdate {
+  height: 20px;
+  width: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.rightSpeedButton {
+  margin: 0 10px 0 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.leftSpeedButton {
+  margin: 0 0 0 10px;
 }

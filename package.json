@@ -3,15 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "get-json": "^1.0.1",
+    "lodash": "^4.17.11",
+    "prompt": "^1.0.0",
+    "promt": "0.0.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-syntax-highlighter": "^10.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "setup": "npm install && npm install nodemon -g && npm install -g concurrently",
+    "server": "nodemon server.js",
+    "web": "react-scripts start",
+    "start": "concurrently \"npm run server\" \"npm run web\""
   },
   "eslintConfig": {
     "extends": "react-app"
