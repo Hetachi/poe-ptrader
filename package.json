@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "get-json": "^1.0.1",
     "lodash": "^4.17.11",
+    "nodemon": "^1.18.10",
     "prompt": "^1.0.0",
     "promt": "0.0.0",
     "react": "^16.8.4",
@@ -15,7 +17,7 @@
     "react-syntax-highlighter": "^10.2.0"
   },
   "scripts": {
-    "setup": "npm install && npm install nodemon -g && npm install -g concurrently",
+    "setup": "npm install",
     "server": "nodemon server.js",
     "web": "react-scripts start",
     "start": "concurrently \"npm run server\" \"npm run web\""
@@ -28,5 +30,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
 }
