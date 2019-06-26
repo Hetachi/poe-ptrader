@@ -11,6 +11,6 @@
 * Run command `npm run start` - This will take around half a minute, and then the app will open up in your browser.
 
 
-#NOTES:
+# NOTES:
 
 Divination card searching leave first field empty!
