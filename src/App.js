@@ -85,13 +85,13 @@ class App extends Component {
     })
       .then( response => {return response.json()})
       .then( (data) => {
-        console.log(data)
-        this.pushUpdateToConsole("Recieved item updates, list updated!")
-        this.setState({itemList: data.result})
-      })
-      .catch(error =>{
-        this.pushUpdateToConsole("Server responded with error check browser console for more info!")
-        console.log(error)
+        if(data[0] === 'ERROR') {
+          this.pushUpdateToConsole(data[1])
+        } else {
+          console.log(data)
+          this.pushUpdateToConsole("Recieved item updates, list updated!")
+          this.setState({itemList: data.result})
+        }
       })
   }
 

@@ -21,9 +21,14 @@ app.post('/api/getItem', function(req, res) {
     new Promise( (resolve, reject)=>{
       getItemFromPoe(itemName, itemType).then( itemData =>{
         resolve(itemData)
+      }).catch(err =>{
+        resolve(err)
       })
     }).then( data => {
       res.send(data);
+    }).catch(err => {
+        console.log(err[0])
+        res.send(err)
     })
 });
 
@@ -36,8 +41,6 @@ function getItemFromPoe(itemName, itemType, filters) {
             "status": {
                 "option": "online"
             },
-            "name": itemName || "",
-            "type": itemType || "",
             "stats": [{
                 "type": "and",
                 "filters": filters || []
@@ -47,65 +50,76 @@ function getItemFromPoe(itemName, itemType, filters) {
             "price": "asc"
         }
     }
+    if(itemName === "" || itemType === "") {
+      query.query.type = itemName || itemType || ""
+    } else {
+      query.query.name = itemName || ""
+      query.query.type = itemType || ""
+    }
     request.post({
       url:  poeUrl,
       json: true,
       body: query
     },function(error, response, body){
         let itemList = ''
-        return new Promise( (resolve, reject) => {
-          let i = 0
-          let urlArray = []
-          if(!body.result) {console.log(body)}
-          body.result.map( (item, index) => {
-            if(i < 10) {
-              if(i === 0) {
-                itemList += item
+        if(body.error) {
+          reject(['ERROR','Something went wrong with the item query... Try a different name'])
+        } 
+        else {
+          return new Promise( (resolve, reject) => {
+            let i = 0
+            let urlArray = []
+            if(!body.result) {console.log(body)}
+            body.result.map( (item, index) => {
+              if(i < 10) {
+                if(i === 0) {
+                  itemList += item
+                } else {
+                  itemList += ","+item
+                }
+                i++
               } else {
-                itemList += ","+item
+                i = 0
+                itemList += "/?id="+body.id
+                urlArray.push(itemList)
               }
-              i++
-            } else {
-              i = 0
-              itemList += "/?id="+body.id
-              urlArray.push(itemList)
-            }
-            return true
-          })
+              return true
+            })
 
-          new Promise( (resolve, reject) => {
-            let queryData = []
-            let finished = _.after(2, mergeData)
+            new Promise( (resolve, reject) => {
+              let queryData = []
+              let finished = _.after(2, mergeData)
 
-            function fetchItemData(pageAmmount) {
-              return new Promise ( (resolve, reject) => {
-                request.get(poeFetchUrl+urlArray[pageAmmount], (error, response, body)=>{
-                  resolve(JSON.parse(body))
+              function fetchItemData(pageAmmount) {
+                return new Promise ( (resolve, reject) => {
+                  request.get(poeFetchUrl+urlArray[pageAmmount], (error, response, body)=>{
+                    resolve(JSON.parse(body))
+                  })
+                }).then( data => {
+                  return data
                 })
-              }).then( data => {
-                return data
-              })
-            }
-
-            fetchItemData(0).then( data => {
-              queryData.push(data)
-              finished()
-            })
-            fetchItemData(1).then( data => {
-              queryData.push(data)
-              finished()
-            })
-
-            function mergeData() {
-              let itemList = queryData[0].result.concat(queryData[1].result)
-              const itemData = {
-                result: itemList
               }
-              resolve(itemData)
-            }
-          }).then ( data => {resolve(data)})
 
-        }).then( data => {resolve(data)})
+              fetchItemData(0).then( data => {
+                queryData.push(data)
+                finished()
+              })
+              fetchItemData(1).then( data => {
+                queryData.push(data)
+                finished()
+              })
+
+              function mergeData() {
+                let itemList = queryData[0].result.concat(queryData[1].result)
+                const itemData = {
+                  result: itemList
+                }
+                resolve(itemData)
+              }
+            }).then ( data => {resolve(data)})
+
+          }).then( data => {resolve(data)})
+        }
       })
     })
 }
