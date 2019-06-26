@@ -136,6 +136,7 @@ class App extends Component {
             this.scrollConsole(true)
           }}>Update name</button>
         </div>
+        <h3 className="divinationNote">NOTE: For divination cards leave first field empty!</h3>
 
         <div className="itemListContainer">
           {this.state.itemList.map( (item, index) => {
