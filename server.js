@@ -12,7 +12,7 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const port = 1337
-const poeUrl = 'http://www.pathofexile.com/api/trade/search/Legion';
+const poeUrl = 'http://www.pathofexile.com/api/trade/search/Blight';
 const poeFetchUrl = 'https://www.pathofexile.com/api/trade/fetch/';
 
 app.post('/api/getItem', function(req, res) {
